@@ -1,0 +1,12 @@
+#login,#signup{
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px;
+}
+mat-form-field,
+textarea {
+  width: 100%;
+}
+p{
+    color:purple;
+}

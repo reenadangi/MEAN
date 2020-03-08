@@ -1,0 +1,22 @@
+#header{
+    width: 100%;
+}
+.chatmsgs{
+  width: 500px;
+  max-height: 400px;
+  font-size: .8em;
+  line-height: 0em;
+}
+
+.nb-theme-default nb-chat-message.not-reply nb-chat-message-text .text{
+  font-size: .8em;
+}
+.example-card {
+    max-width: 530px;
+    
+  }
+  
+  .example-header-image {
+    background-image: url('http://localhost:4200/assets/images/bot.jpeg');
+    background-size: cover;
+  }

@@ -1,0 +1,21 @@
+<div id="signup">
+<mat-card>
+<app-signup></app-signup>
+</mat-card>
+</div>
+<div id="login">
+<mat-card>
+ <p id="errorMsg">{{errorMsg}}</p>   
+<form (submit)="onLogin(loginForm)" #loginForm="ngForm">
+    <mat-form-field>
+        <input matInput type="email" placeholder="E-mail" name="email" id="email" ngModel required email  #email="ngModel" >
+        <mat-error *ngIf="email.invalid">Pls enter valid name</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Password" name="password"  ngModel required  #password="ngModel">
+        <mat-error *ngIf="password.invalid">Pls enter valid password</mat-error>
+      </mat-form-field>
+      <button type="submit" mat-raised-button color="accent">Login!</button>
+</form>
+</mat-card>
+</div>

@@ -1,0 +1,22 @@
+#header{
+    background-color:black;
+    
+  }
+  #footer{
+    background-color: black;
+  }
+
+  .chatbot{
+    position: fixed;
+    right: 5vh;
+    top:20vh;
+
+  }
+  #btn-bot{
+    position: fixed;
+    right: 5vh;
+    top:10vh;
+    background-image: url("/assets/images/bot.jpeg");
+    background-size: cover;
+  }
+  

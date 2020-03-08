@@ -1,0 +1,20 @@
+<nb-layout>
+    <nb-layout-header fixed id="header">
+      <app-header></app-header> 
+      <button id="btn-bot" mat-fab color="accent" (click)=toggleDisplay()></button>
+    </nb-layout-header>
+    <nb-layout-column>
+      <!-- Body -->
+      <router-outlet></router-outlet>
+      <!-- End Body -->
+      <!-- Chatbot -->
+      <div class="chatbot" [hidden]="isShow">
+       <button id="bot-close" mat-fab (click)=toggleDisplay()>X</button>
+       <app-chatbot></app-chatbot>
+      </div>
+      <!-- end of ChatBot -->
+    </nb-layout-column>
+    <nb-layout-footer> 
+      <app-footer></app-footer>
+    </nb-layout-footer>
+  </nb-layout>

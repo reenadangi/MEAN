@@ -1,0 +1,30 @@
+
+
+#logo{
+    height: 50px;
+   
+
+}
+
+h1,li,ul{
+    display: inline-block;   
+   }
+ul{
+    float: right;
+}
+li{
+   padding: 20px; 
+   color: white;
+}
+
+a {
+   
+ font-family: Roboto,Helvetica Neue,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #FFA000;
+}
+.spacer {
+    flex: 1 1 auto;
+  }
+  

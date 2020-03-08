@@ -1,0 +1,36 @@
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-dark"> -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <img id="logo" src="/assets/images/logo.png" alt="logo">
+    <span class="spacer"></span>
+  
+    <!-- <div class="collapse navbar-collapse" id="navbarTogglerDemo03"> -->
+      <!-- <ul class="nav navbar-nav navbar-right">
+        
+      </ul> -->
+      <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item active">
+            <a mat-button color="accent" href="#">HOME <span class="sr-only">(current)</span></a>
+          </li>
+        <li class="nav-item" *ngIf="!userIsAuthenticated">
+            <a  mat-button color="accent" routerLink="/login"> LOGIN </a>
+        </li>
+        <li class="nav-item" *ngIf="userIsAuthenticated">
+            <a  mat-button color="accent" routerLink="#"> ABOUT US </a>
+        </li>
+        
+        <li class="nav-item" *ngIf="userIsAuthenticated">
+            <a  mat-button color="accent" routerLink="#"> SERVICES </a>
+        </li>
+        <li class="nav-item" *ngIf="userIsAuthenticated">
+            <a  mat-button color="accent" routerLink="#"> SPECIALS </a>
+        </li>
+        <li class="nav-item" *ngIf="userIsAuthenticated" (click)="onLogOut()">
+            <button mat-button color="accent">LOGOUT</button>
+        </li>
+      </ul>
+     
+    <!-- </div>
+  </nav> -->
+
