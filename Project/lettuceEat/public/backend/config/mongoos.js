@@ -4,8 +4,7 @@ var path = require('path');
 
 
 
-// mongoose.connect('mongodb://localhost:27017/my_first_db', {useNewUrlParser: true})
-mongoose.connect('mongodb+srv://reena:wCqL7Az7QUxtCI8Z@cluster0-gvom7.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true})
+mongoose.connect('mongodb://localhost:27017/my_first_db', {useNewUrlParser: true})
 .then(()=>{console.log("Connected to DB")})
 .catch(()=>{console.log("Connection Fail")});
 
