@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chat Room</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var name = prompt("What is your name?");
+            var socket = io.connect();
+            socket.emit("new_user_request", {
+                name: name
+            })
+
+            socket.on('update_users', function (data) {
+                console.log(data.user)
+                $("#users ul").append('<li>' + data.user + '</li>');
+                //add a new card
+            });
+            socket.on("existing_users", function (data) {
+                for (user of data.users) {
+                    //console.log(data.users[user])
+                    console.log(user['name'])
+                    $("#users ul").append('<li id="' + user['client'] + '">' + user['name'] + '</li>');
+
+                }
+                //add a new card
+            });
+            socket.on("update_chat", function (data) {
+                $("#chats ul").empty();
+                for (msg of data.msgs) {
+                    //console.log(data.users[user])
+                    let chat=msg['user']+":"+ msg['msg']
+                    console.log(chat)
+                    $("#chats ul").append('<li>' + chat + '</li>');
+
+                }
+                //add a new card
+            });
+            socket.on("user_disconnected", function (data) {
+                console.log("A user is disconnected and these are left", data.users)
+                $("#users ul").empty();
+                for (user of data.users) {
+                    //console.log(data.users[user])
+                    console.log(user['name'])
+                    $("#users ul").append('<li id="' + user['client'] + '">' + user[
+                        'name'] + '</li>');
+
+                }
+            });
+
+            socket.on("clear_users", function () {
+                console.log("clear all users")
+                $("#users ul").empty();
+                $("#chats ul").empty();
+
+            });
+
+            $('#reset').click(function () {
+                console.log("in reset")
+                //$("#user ul").empty();
+                socket.emit("reset")
+            });
+            $('#send').click(function () {
+
+                //$("#user ul").empty();
+                console.log("sdsf", $("#msg").val())
+                msg = $("#msg").val();
+                console.log("in send", msg)
+                socket.emit("send", {
+                    msg: msg
+                })
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <h2>Online users:</h2>
+        <div id="users">
+            <ul>
+
+            </ul>
+        </div>
+        <button id="reset">Reset</button>
+    </div>
+    
+    Enter Your msg here:<input type="text" id="msg">
+    <button id="send">Send</button>
+    <div id="chats">
+        <ul>
+
+        </ul>
+    </div>
+    
+</div>
+    
+</body>
+
+</html>

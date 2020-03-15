@@ -1,0 +1,19 @@
+#users{
+    height: 200px;
+    width: 200px;
+    margin: 20px;
+    background-color: aquamarine;
+    font-size: 30px; 
+}
+ul {
+    list-style-type: none;
+    padding: 10;
+    background-color: black;
+    color: white;
+  }
+  #chats{
+    min-height: 200px;
+    
+    margin: 20px;
+    background-color: aquamarine;
+    font-size: 30px; 

@@ -1,0 +1,167 @@
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="chatstyle.css">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var name = prompt("What is your name?");
+            var socket = io.connect();
+            socket.emit("new_user_request", {
+                name: name
+            })
+
+            socket.on('update_users', function (data) {
+                console.log(data.user)
+               // $("#users ul").append('<li >' + data.user + '</li>');
+                //add a new card
+
+               // $("#users ul").append('<div class="chat_img"><img src="guy.png"/></div> <li class=list-group-item>' + data.user + '</li>');
+               $("#users ul").append('<li class=list-group-item><img class="chat_img" src="boy.png"/> <p class=user-name >' + data.user + '</p></li>');
+              
+            });
+            socket.on("existing_users", function (data) {
+                //when a new user is added ,all online users should be added
+                
+
+                for (user of data.users) {
+                    //console.log(data.users[user])
+                    console.log(user['name'])
+                   //$("#users ul").append('<div class="chat_img"><img src="guy.png"/></div> <li class=list-group-item id="' + user['client'] + '">' + user['name'] + '</li>');
+
+                   //$("users").append("<div class=chat_people><div class='chat_img'><img src='https://ptetutorials.com/images/user-profile.png' alt='image'></div> <div class='chat_ib' id='users'> <p id='"+user['client'] +"'>"+user['name']+" </p> </div>");
+                   $("#users ul").append('<li class=list-group-item><img class="chat_img" src="boy.png"/> <p class=user-name id="' + user['client'] + '">' + user['name'] + '</p></li>');
+              
+                
+                }
+                
+
+                //add a new card
+            });
+            socket.on("update_chat", function (data) {
+               
+               // $("#chats").empty();
+                //for (msg of data.msgs) {
+                    let chat = data.msg['user'] + ":" + data.msg['msg']
+                    console.log(chat)
+                    $("#chats").append("<p><span>"+ data.msg['user']+"</span>"+data.msg['msg']+"</p>"
+
+
+                    );
+                //}
+                //add a new card
+            });
+            socket.on("user_disconnected", function (data) {
+                console.log("A user is disconnected and these are left", data.users)
+                $("#users ul").empty();
+                for (user of data.users) {
+                    //console.log(data.users[user])
+                    console.log(user['name'])
+
+                   //$("#users ul").append('<div class="chat_img"><img src="guy.png"/></div> <li class=list-group-item id="' + user['client'] + '">' + user['name'] + '</li>');
+                   //$("#users ul").append('<li class=list-group-item><img class="chat_img" src="guy.png"/> <p class="user-name" id="' + user['client'] + '">' + user['name'] + '</p></li>');
+                   
+                   $("#users ul").append('<li class=list-group-item><img class="chat_img" src="boy.png"/> <p class=user-name id="' + user['client'] + '">' + user['name'] + '</p></li>');
+              
+                }
+            });
+
+            socket.on("clear_users", function () {
+                console.log("clear all users")
+                $("#users ul").empty();
+                $("#chats").empty();
+
+            });
+
+            $('#reset').click(function () {
+                console.log("in reset")
+                //$("#user ul").empty();
+                socket.emit("reset")
+            });
+            $('#send').click(function () {
+
+                //$("#user ul").empty();
+                console.log("sdsf", $("#msg").val())
+                msg = $("#msg").val();
+                console.log("in send", msg)
+                $('#msg').val("");
+                socket.emit("send", {
+                    msg: msg
+                })
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+    <button id="reset">Reset</button>
+    <div class="messaging">
+        <div class="inbox_msg">
+            <div class="inbox_people">
+                <div class="headind_srch">
+                    <div class="recent_heading">
+                        <h4>Recent</h4>
+                    </div>
+                    <div class="srch_bar">
+                        <div class="stylish-input-group">
+                            <input type="text" class="search-bar" placeholder="Search">
+                        </div>
+                    </div>
+                </div>
+                <div class="inbox_chat scroll">
+                    <div class="chat_list active_chat">
+
+                    </div>
+                    <div class="chat_list" id="users">
+                    <ul class="list-group"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="msgs">
+                <div class="msg_history">
+                    <div class="incoming_msg">
+                        <div class="incoming_msg_img"> <img src="boy.png"
+                                alt="user"> </div>
+                        <div class="received_msg">
+                            <div class="received_withd_msg" id="chats">
+                                
+                                <p><span> Reena:
+                                </span> This is a cool chat application !</p>
+                               
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="type_msg">
+                    <div class="input_msg_write">
+                        <input type="text" id="msg" class="write_msg" placeholder="Type a message" />
+                        <button class="msg_send_btn" type="button" id="send"><i class="fa fa-paper-plane"
+                                aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
